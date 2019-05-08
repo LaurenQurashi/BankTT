@@ -1,25 +1,12 @@
 require 'date'
 
 class Transaction
-  attr_reader :balance, :date, :credit, :debit, :history
+  attr_reader :date, :credit, :debit
 
-  def initialize
-    @balance = 0
-    @date = Date.today.strftime("%d/%m/%Y")
-    @credit = 0
-    @debit = 0
-    @history = []
+  def initialize(date: Date.today.strftime("%d/%m/%Y"), credit:, debit: )
+    @date = date
+    @credit = credit
+    @debit = debit
   end
-
-  def addCred(deposit)
-    @credit += deposit
-    @balance += deposit
-  end
-
-  def minusDeb(withdrawal)
-    @debit += withdrawal
-    @balance-= withdrawal
-  end
-
 
 end
