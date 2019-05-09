@@ -11,7 +11,9 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#
+require 'simplecov'
+require 'simplecov-console'
+require 'rspec'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -97,4 +99,19 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::Console,
+  # Want a nice code coverage website? Uncomment this next line!
+  # SimpleCov::Formatter::HTMLFormatter
+])
+SimpleCov.start
+
+RSpec.configure do |config|
+  config.after(:suite) do
+    puts
+    puts "\e[33mHave you considered running rubocop? It will help you improve your code!\e[0m"
+    puts "\e[33mTry it now! Just run: rubocop\e[0m"
+  end
 end

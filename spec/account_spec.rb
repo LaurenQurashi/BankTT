@@ -22,20 +22,16 @@ describe Account do
 
     before(:each) do
       @account = Account.new
-      @account.addCredit(10)
     end
 
     it "Has a method that adds to the balance" do
-      expect(@account.balance).to eq 10
+      expect { @account.add_credit(10) }.to change { @account.balance }.from(0).to(10)
     end
 
-    it "Makes a new transaction object that details the credit added" do
-      expect(@account.addCredit(10).credit).to eq(10)
-    end
-
-    it "Pushes that transaction object into the history array" do
-      expect(@account.history).to include(a_kind_of(Transaction))
-      expect(@account.history[0].credit).to eq 10
+    it "Pushes a transaction object into the history array" do
+      transaction_double = double("Transaction", credit: 0, debit: 0, balance: 10)
+      @account.history.push(transaction_double)
+      expect(@account.history).to include(transaction_double)
     end
 
   end
@@ -43,22 +39,17 @@ describe Account do
   context 'Taking Debit' do
     before(:each) do
       @account = Account.new
-      @account.addCredit(10)
+      @account.add_credit(10)
     end
 
     it "Has a method that subtracts from the balance" do
-      @account.subtractDebit(5)
-      expect(@account.balance).to eq 5
-    end
-
-    it "Makes a new transaction object that details the debit taken" do
-      expect(@account.subtractDebit(5).debit).to eq(5)
+      expect { @account.subtract_debit(5) }.to change { @account.balance }.from(10).to(5)
     end
 
     it "Pushes that transaction object into the history array" do
-      @account.subtractDebit(5)
-      expect(@account.history).to include(a_kind_of(Transaction))
-      expect(@account.history[1].debit).to eq 5
+      transaction_double = double("Transaction", credit: 0, debit: 0, balance: 10)
+      @account.history.push(transaction_double)
+      expect(@account.history).to include(transaction_double)
     end
 
   end
