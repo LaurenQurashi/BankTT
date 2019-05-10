@@ -26,37 +26,24 @@ describe StatementFormatter do
 
     it "prints out a transaction date from the transaction its passed" do
       statement = StatementFormatter.printer([@transaction1])
-      expect(statement).to eq "10/05/2019"
+      p statement
+      expect(statement[0]).to eq "10/05/2019"
     end
 
-    # it "prints out a transaction credit from the transaction it's passed" do
-    #   statement = StatementFormatter.printer([transaction1])
-    #   expect(statement).to eq "10/05/2019"
-    # end
-    #
-    # it "prints out a transaction debit from the transaction it's passed" do
-    #   transaction1 = double(:transaction1)
-    #   allow(transaction1).to receive(:date).and_return Date.today.strftime("%d/%m/%Y")
-    #   statement = StatementFormatter.printer([transaction1])
-    #   expect(statement).to eq "10/05/2019"
-    # end
-    #
-    # it "prints out a transaction balance from the transaction it's passed" do
-    #   transaction1 = double(:transaction1)
-    #   allow(transaction1).to receive(:date).and_return Date.today.strftime("%d/%m/%Y")
-    #   statement = StatementFormatter.printer([transaction1])
-    #   expect(statement).to eq "10/05/2019"
-    # end
-    #
-    # it "prints out a double's date from the array it's passed" do
-    #   transaction1 = double(:transaction1)
-    #   allow(transaction1).to receive(:date).and_return Date.today.strftime("%d/%m/%Y")
-    #   transaction2 = double(:transaction2)
-    #   allow(transaction2).to receive(:date).and_return Date.today.strftime("%d/%m/%Y")
-    #   statement = StatementFormatter.printer([transaction1, transaction2])
-    #   p statement
-    #   expect(statement).to eq "10/05/2019"
-    # end
+    it "prints out a transaction credit from the transaction it's passed" do
+      statement = StatementFormatter.printer([@transaction1])
+      expect(statement[1]).to eq "100.00"
+    end
+
+    it "prints out a transaction debit from the transaction it's passed" do
+      statement = StatementFormatter.printer([@transaction2])
+      expect(statement[2]).to eq "50.00"
+    end
+
+    it "prints out a transaction balance from the transaction it's passed" do
+      statement = StatementFormatter.printer([@transaction1])
+      expect(statement[3]).to eq "100.00"
+    end
 
   end
 
