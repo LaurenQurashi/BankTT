@@ -3,7 +3,7 @@ require 'transaction.rb'
 
 describe StatementFormatter do
 
-  context '.initialize' do
+  context 'printer method' do
 
     before(:each) do
       @transaction1 = double(:transaction1)
@@ -26,25 +26,33 @@ describe StatementFormatter do
 
     it "prints out a transaction date from the transaction its passed" do
       statement = StatementFormatter.printer([@transaction1])
-      p statement
-      expect(statement[0]).to eq "10/05/2019"
+      expect(statement).to include "10/05/2019"
     end
 
     it "prints out a transaction credit from the transaction it's passed" do
       statement = StatementFormatter.printer([@transaction1])
-      expect(statement[1]).to eq "100.00"
+      expect(statement).to include "100.00"
     end
 
     it "prints out a transaction debit from the transaction it's passed" do
       statement = StatementFormatter.printer([@transaction2])
-      expect(statement[2]).to eq "50.00"
+      expect(statement).to include "50.00"
     end
 
     it "prints out a transaction balance from the transaction it's passed" do
+      p statement = StatementFormatter.printer([@transaction1])
+      expect(statement).to include "100.00"
+    end
+
+    it "Prints out a formatted statement" do
       statement = StatementFormatter.printer([@transaction1])
-      expect(statement[3]).to eq "100.00"
+      expect(statement).to eq "10/05/2019 |  100.00 |   |  100.00"
+
     end
 
   end
+
+
+
 
 end

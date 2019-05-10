@@ -27,7 +27,8 @@ class Account
   end
 
   def print_statement
-    puts @formatter.format_statement(@history)
+    puts @formatter::HEADER
+    print @formatter.printer(@history)
   end
 
 end
